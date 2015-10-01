@@ -1,0 +1,47 @@
+{
+  "name": "tangojs-connector-local",
+  "version": "0.1.0",
+  "description": "In-memory data model for TangoJS.",
+  "main": "lib/tangojs-connector-local.js",
+  "author": "mliszcz",
+  "license": "MIT",
+  "keywords": [
+    "tango",
+    "tangojs"
+  ],
+  "homepage": "https://github.com/mliszcz/tangojs-connector-local#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mliszcz/tangojs-connector-local.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mliszcz/tangojs-connector-local/issues"
+  },
+  "scripts": {
+    "compile": "gulp compile model:compile",
+    "prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "tangojs": "mliszcz/tangojs"
+  },
+  "devDependencies": {
+    "babel": "*",
+    "babel-eslint": "*",
+    "del": "*",
+    "eslint": "*",
+    "gulp": "*",
+    "gulp-babel": "*",
+    "gulp-coffee": "*",
+    "gulp-concat": "*",
+    "gulp-filter": "*",
+    "gulp-gh-pages": "*",
+    "gulp-plumber": "*",
+    "gulp-rename": "*",
+    "gulp-rollup": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "gulp-watch": "*",
+    "rollup": "*"
+  }
+}
