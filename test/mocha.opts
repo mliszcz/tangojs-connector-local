@@ -1,0 +1,4 @@
+./test/bootstrap.test.js
+./test/unit/**/*.test.js
+--recursive
+--reporter spec

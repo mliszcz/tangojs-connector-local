@@ -34,10 +34,6 @@ gulp.task('clean', () =>
 
 /**
  * Transpiles and bundles the library.
- *
- * Rollup concatenates ES6 modules properly.
- * Sourcemap generated with first sourcemaps.write() call needs to be dropped
- * in the next step. Otherwise uglifier will try parsing that as a .js file.
  */
 gulp.task('compile', () =>
   gulp.src(CONFIG.entryFile, {read: true})
@@ -45,11 +41,13 @@ gulp.task('compile', () =>
       gutil.log(error)
       this.emit('end')
     }))
-    // .pipe(rollup({external: ['tangojs']}))
+    .pipe(rollup({external: ['tangojs']}))
     // .pipe(rollup())
     .pipe(sourcemaps.init())
-    .pipe(babel({modules: 'umd'}))
-    // .pipe(babel())
+    .pipe(babel({
+      presets: ['es2015'],
+      plugins: ['transform-es2015-modules-umd']
+    }))
     .pipe(concat(CONFIG.packageName))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(CONFIG.targetDir))
@@ -64,7 +62,9 @@ gulp.task('model:compile', () =>
   gulp.src(CONFIG.modelSource)
     .pipe(sourcemaps.init())
     .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(babel({modules: 'umd'}))
+    .pipe(babel({
+      plugins: ['transform-es2015-modules-umd']
+    }))
     .pipe(concat(CONFIG.modelPackageName))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(CONFIG.targetDir))
