@@ -16,7 +16,7 @@ const CONFIG = {
   entryFile: './src/tangojs-connector-local.js',
   targetDir: './lib',
   packageName: 'tangojs-connector-local.js',
-  modelSource: './src/tangojs-connector-local-testmodel.coffee',
+  modelSource: './src/demo-model.coffee',
   modelPackageName: 'tangojs-connector-local-testmodel.js'
 }
 
@@ -73,6 +73,6 @@ gulp.task('model:compile', () =>
 /**
  * Trigger compilation when any of .js files changes.
  */
-gulp.task('watch', ['compile'], () =>
+gulp.task('watch', ['compile', 'model:compile'], () =>
   gulp.watch([CONFIG.sourceGlob], ['compile'])
 )
