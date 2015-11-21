@@ -2,6 +2,8 @@
   "globals": {
     "beforeEach": true,
     "describe": true,
-    "it": true
+    "xdescribe": true,
+    "it": true,
+    "xit": true
   }
 }

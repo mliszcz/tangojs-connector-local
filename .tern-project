@@ -1,0 +1,12 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+  ],
+  "loadEagerly": [
+    "src/**/*.js",
+    "node_modules/tangojs/lib/**/*.js",
+    "node_modules/sinon-*/lib/**/*.js",
+    "node_modules/chai-*/lib/**/*.js",
+    "node_modules/mocha/lib/**/*.js"
+  ]
+}

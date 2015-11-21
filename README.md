@@ -1,8 +1,8 @@
 # tangojs-connector-local
 
-![dependencies](https://img.shields.io/david/mliszcz/tangojs.svg)
-![dev dependencies](https://img.shields.io/david/dev/mliszcz/tangojs.svg)
-[ ![npm version](https://img.shields.io/npm/v/tangojs.svg)
+![dependencies](https://img.shields.io/david/mliszcz/tangojs-connector-local.svg)
+![dev dependencies](https://img.shields.io/david/dev/mliszcz/tangojs-connector-local.svg)
+[ ![npm version](https://img.shields.io/npm/v/tangojs-connector-local.svg)
 ](https://www.npmjs.com/package/tangojs-connector-local)
 
 In-memory data model for [TangoJS](https://github.com/mliszcz/tangojs).
