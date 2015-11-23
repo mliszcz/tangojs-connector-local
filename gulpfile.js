@@ -17,7 +17,7 @@ const CONFIG = {
   targetDir: './lib',
   packageName: 'tangojs-connector-local.js',
   modelSource: './src/demo-model.coffee',
-  modelPackageName: 'tangojs-connector-local-testmodel.js'
+  modelPackageName: 'tangojs-demo-model.js'
 }
 
 /**
