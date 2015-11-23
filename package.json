@@ -1,6 +1,6 @@
 {
   "name": "tangojs-connector-local",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "In-memory data model for TangoJS.",
   "main": "lib/tangojs-connector-local.js",
   "author": "mliszcz",
@@ -22,8 +22,7 @@
     "prepublish": "npm run compile",
     "test": "./node_modules/.bin/babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "tangojs": "^0.2.0",
     "babel": "^6.1.0",
@@ -54,10 +53,9 @@
     "mocha": "^2.3.0",
     "sinon": "^1.17.0",
     "sinon-chai": "^2.8.0"
-
   },
   "engines": {
-    "node" : "^4.0.0",
+    "node": "^4.0.0",
     "npm": "^2.0.0"
   }
 }
