@@ -4,6 +4,24 @@
 ###*
  * @private
  ###
+createDeviceAttributeStruct = (name, data_format, value) ->
+  new tangojs.struct.DeviceAttribute
+    data_format: data_format
+    data_type: undefined
+    err_list: []
+    name: name
+    quality: tangojs.tango.AttrQuality.ATTR_VALID
+    r_dim: null
+    time: new tangojs.tango.TimeVal
+      tv_sec: parseInt(new Date().getTime()/1000)
+      tv_usec: 0
+      tv_nsec: 0
+    value: value
+    w_dim: null
+
+###*
+ * @private
+ ###
 createAttribute = (initial
                    name,
                    unit,
@@ -39,19 +57,7 @@ createAttribute = (initial
     standard_unit: unit
     writable: writable
     writable_attr_name: undefined
-  get_value: -> new tangojs.struct.DeviceAttribute
-    data_format: data_format
-    data_type: undefined
-    err_list: []
-    name: name
-    quality: tangojs.tango.AttrQuality.ATTR_VALID
-    r_dim: null
-    time: new tangojs.tango.TimeVal
-      tv_sec: parseInt(new Date().getTime()/1000)
-      tv_usec: 0
-      tv_nsec: 0
-    value: _value
-    w_dim: null
+  get_value: -> createDeviceAttributeStruct(name, data_format, _value)
   set_value: (v) ->
     _value = v
 
@@ -76,8 +82,10 @@ createCommand = (handler,
  ###
 createDevice = (name) ->
 
+  _state = tangojs.tango.DevState.OFF
+
   get_status: -> 'ON'
-  get_state: -> tangojs.tango.DevState.ON
+  get_state: -> _state
 
   get_info: -> new tangojs.struct.DeviceInfo
     exported: true
@@ -90,7 +98,7 @@ createDevice = (name) ->
     boolean: new tangojs.struct.DbDatum('boolean', true)
 
   attributes:
-    scalar: createAttribute(0
+    scalar: createAttribute(0,
                             'scalar',
                             'u',
                             tangojs.tango.AttrDataFormat.SCALAR,
@@ -103,7 +111,7 @@ createDevice = (name) ->
                               max_warning: '50'
                               max_alarm: '70'
                             }))
-    string: createAttribute(undefined
+    string: createAttribute(undefined,
                             'string'
                             undefined,
                             tangojs.tango.AttrDataFormat.SCALAR,
@@ -113,14 +121,64 @@ createDevice = (name) ->
                             undefined,
                             undefined,
                             null)
+    sine_trend: (->
+      name = 'sine_trend'
+      format = 'scientific,setprecision(3)'
+      attr = createAttribute(0,
+                             name,
+                             'u',
+                             tangojs.tango.AttrDataFormat.SCALAR,
+                             format,
+                             tangojs.tango.DispLevel.OPERATOR,
+                             tangojs.tango.AttrWriteType.READ,
+                             undefined,
+                             undefined,
+                             null)
+      attr.get_value = ->
+        value = Math.sin((new Date()).getTime()/1000.0)
+        createDeviceAttributeStruct(name, format, value)
+      attr
+    )()
+    boolean: createAttribute(false,
+                             'boolean'
+                             undefined,
+                             tangojs.tango.AttrDataFormat.SCALAR,
+                             undefined,
+                             tangojs.tango.DispLevel.OPERATOR,
+                             tangojs.tango.AttrWriteType.READ_WRITE,
+                             undefined,
+                             undefined,
+                             null)
+    spectrum: createAttribute(([1..10].map (_i) -> Math.random()),
+                              'spectrum'
+                              undefined,
+                              tangojs.tango.AttrDataFormat.SPECTRUM,
+                              undefined,
+                              tangojs.tango.DispLevel.OPERATOR,
+                              tangojs.tango.AttrWriteType.READ,
+                              undefined,
+                              undefined,
+                              null)
 
   commands:
-    double: createCommand(((x) -> 2*x),
-                          'double',
-                          tangojs.tango.DispLevel.OPERATOR)
+    double_arg: createCommand(((x) -> 2*x),
+                              'double',
+                              tangojs.tango.DispLevel.OPERATOR)
     to_upper: createCommand(((x) -> x.toUpperCase()),
-                          'to_upper',
-                          tangojs.tango.DispLevel.OPERATOR)
+                            'to_upper',
+                            tangojs.tango.DispLevel.OPERATOR)
+    goto_on: createCommand((-> _state = tangojs.tango.DevState.ON),
+                           'goto_on',
+                           tangojs.tango.DispLevel.OPERATOR)
+    goto_off: createCommand((-> _state = tangojs.tango.DevState.OFF),
+                            'goto_off',
+                            tangojs.tango.DispLevel.OPERATOR)
+    goto_fault: createCommand((-> _state = tangojs.tango.DevState.FAULT),
+                              'goto_fault',
+                              tangojs.tango.DispLevel.OPERATOR)
+    goto_alarm: createCommand((-> _state = tangojs.tango.DevState.OFF),
+                              'goto_off',
+                              tangojs.tango.DispLevel.OPERATOR)
 
 ###*
  * @private
