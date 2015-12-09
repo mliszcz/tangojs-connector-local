@@ -82,6 +82,7 @@ createCommand = (handler,
  ###
 createDevice = (name) ->
 
+  _name = name
   _state = tangojs.tango.DevState.OFF
 
   get_status: -> 'ON'
@@ -90,7 +91,7 @@ createDevice = (name) ->
   get_info: -> new tangojs.struct.DeviceInfo
     exported: true
     ior: 'IOR:123456789'
-    name: name
+    name: _name
 
   properties:
     scalar: new tangojs.struct.DbDatum('scalar', 1)
@@ -176,7 +177,7 @@ createDevice = (name) ->
     goto_fault: createCommand((-> _state = tangojs.tango.DevState.FAULT),
                               'goto_fault',
                               tangojs.tango.DispLevel.OPERATOR)
-    goto_alarm: createCommand((-> _state = tangojs.tango.DevState.OFF),
+    goto_alarm: createCommand((-> _state = tangojs.tango.DevState.ALARM),
                               'goto_off',
                               tangojs.tango.DispLevel.OPERATOR)
 
