@@ -93,7 +93,8 @@ export class DeviceTreeInspector {
    * @return {Promise<string[]>}
    */
   getDeviceNameList() {
-    return Object.keys(flatten(this._model, 3, '/'))
+    const list = Object.keys(flatten(this._model, 3, '/'))
       .filter(key => (key.match(slash) || []).length === 2)
+    return Promise.resolve(list)
   }
 }
