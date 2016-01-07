@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "In-memory data model for TangoJS.",
   "main": "lib/tangojs-connector-local.js",
-  "author": "mliszcz",
+  "author": "mliszcz <liszcz.michal@gmail.com>",
   "license": "MIT",
   "keywords": [
     "tango",
