@@ -9,13 +9,13 @@
     "tango",
     "tangojs"
   ],
-  "homepage": "https://github.com/mliszcz/tangojs-connector-local#readme",
+  "homepage": "https://github.com/tangojs/tangojs-connector-local#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mliszcz/tangojs-connector-local.git"
+    "url": "git+ssh://git@github.com/tangojs/tangojs-connector-local.git"
   },
   "bugs": {
-    "url": "https://github.com/mliszcz/tangojs-connector-local/issues"
+    "url": "https://github.com/tangojs/tangojs-connector-local/issues"
   },
   "scripts": {
     "compile": "gulp compile model:compile",
