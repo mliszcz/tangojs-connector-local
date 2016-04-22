@@ -1,6 +1,8 @@
 import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 import { DeviceTreeInspector } from '../../../src/tangojs-connector-local/DeviceTreeInspector'
 
+chai.use(chaiAsPromised)
 chai.should()
 
 /**
@@ -40,7 +42,7 @@ describe('DeviceTreeInspector', () => {
 
   describe('getDeviceNameList', () => {
     it('Should list of all device names', () => {
-      inspector.getDeviceNameList().should.have.members([
+      inspector.getDeviceNameList().should.eventually.have.members([
         'dom1/fam11/mem111',
         'dom1/fam11/mem112',
         'dom1/fam12/mem121',

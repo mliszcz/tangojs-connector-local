@@ -1,5 +1,5 @@
 
-import * as tangojs from 'tangojs'
+import * as tangojs from 'tangojs-core'
 
 import { DeviceTreeInspector } from './DeviceTreeInspector'
 

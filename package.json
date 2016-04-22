@@ -24,7 +24,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "tangojs": "^0.2.0",
+    "tangojs-core": "^0.2.0",
     "babel": "^6.1.0",
     "babel-cli": "^6.1.0",
     "babel-eslint": "^4.1.0",

@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import chaiAsPromised from 'chai-as-promised'
 import sinonChai from 'sinon-chai'
 import { LocalConnector } from '../../../src/tangojs-connector-local'
-import * as tangojs from 'tangojs'
+import * as tangojs from 'tangojs-core'
 
 chai.use(chaiAsPromised)
 chai.use(sinonChai)
