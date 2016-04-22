@@ -41,7 +41,7 @@ gulp.task('compile', () =>
       gutil.log(error)
       this.emit('end')
     }))
-    .pipe(rollup({external: ['tangojs']}))
+    .pipe(rollup({external: ['tangojs-core']}))
     // .pipe(rollup())
     .pipe(sourcemaps.init())
     .pipe(babel({
