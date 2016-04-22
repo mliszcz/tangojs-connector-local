@@ -1,6 +1,6 @@
 {
   "name": "tangojs-connector-local",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "In-memory data model for TangoJS.",
   "main": "lib/tangojs-connector-local.js",
   "author": "mliszcz <liszcz.michal@gmail.com>",
