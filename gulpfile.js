@@ -10,6 +10,7 @@ var sourcemaps  = require('gulp-sourcemaps')
 var uglify      = require('gulp-uglify')
 var gutil       = require('gulp-util')
 var del         = require('del')
+var coffeescript = require('rollup-plugin-coffee-script')
 
 const CONFIG = {
   sourceGlob: './src/**/*.js',
@@ -41,32 +42,34 @@ gulp.task('compile', () =>
       gutil.log(error)
       this.emit('end')
     }))
-    .pipe(rollup({external: ['tangojs-core']}))
-    // .pipe(rollup())
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['es2015'],
-      plugins: ['transform-es2015-modules-umd']
+    .pipe(rollup({
+      format: 'umd',
+      moduleName: 'tangojsConnectorLocal',
+      external: ['tangojs-core'],
+      globals: {
+        'tangojs-core': 'tangojs'
+      },
+      sourceMap: true
     }))
-    .pipe(concat(CONFIG.packageName))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(CONFIG.targetDir))
-    .pipe(filter(file => ! file.path.endsWith('.map')))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(CONFIG.targetDir))
 )
 
 gulp.task('model:compile', () =>
-  gulp.src(CONFIG.modelSource)
-    .pipe(sourcemaps.init())
-    .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(babel({
-      plugins: ['transform-es2015-modules-umd']
+  gulp.src(CONFIG.modelSource, {read: true})
+    .pipe(rollup({
+      format: 'umd',
+      moduleName: 'demoModel',
+      external: ['tangojs-core'],
+      globals: {
+        'tangojs-core': 'tangojs'
+      },
+      entry: CONFIG.modelSource,
+      plugins: [
+        coffeescript()
+      ]
     }))
     .pipe(concat(CONFIG.modelPackageName))
-    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(CONFIG.targetDir))
 )
 
