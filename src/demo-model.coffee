@@ -5,14 +5,14 @@
  * @private
  ###
 createDeviceAttributeStruct = (name, data_format, value) ->
-  new tangojs.struct.DeviceAttribute
+  new tangojs.core.api.DeviceAttribute
     data_format: data_format
     data_type: undefined
     err_list: []
     name: name
-    quality: tangojs.tango.AttrQuality.ATTR_VALID
+    quality: tangojs.core.tango.AttrQuality.ATTR_VALID
     r_dim: null
-    time: new tangojs.tango.TimeVal
+    time: new tangojs.core.tango.TimeVal
       tv_sec: parseInt(new Date().getTime()/1000)
       tv_usec: 0
       tv_nsec: 0
@@ -35,7 +35,7 @@ createAttribute = (initial
                    data_type
                    ) ->
   _value = initial
-  get_info: -> new tangojs.struct.AttributeInfo
+  get_info: -> new tangojs.core.api.AttributeInfo
     att_alarm: alarm
     data_format: data_format
     data_type: data_type
@@ -70,7 +70,7 @@ createCommand = (handler,
                  level,
                  in_type,
                  out_type) ->
-  get_info: -> new tangojs.struct.CommandInfo
+  get_info: -> new tangojs.core.api.CommandInfo
     cmd_name: name
     cmd_tag: 0
     in_type: in_type
@@ -78,7 +78,7 @@ createCommand = (handler,
     level: level
     out_type: out_type
     out_type_desc: 'command output'
-  inout: (devData) -> new tangojs.struct.DeviceData(handler(devData.value))
+  inout: (devData) -> new tangojs.core.api.DeviceData(handler(devData.value))
 
 ###*
  * @private
@@ -86,61 +86,61 @@ createCommand = (handler,
 createDevice = (name) ->
 
   _name = name
-  _state = tangojs.tango.DevState.OFF
+  _state = tangojs.core.tango.DevState.OFF
 
   get_status: -> 'ON'
   get_state: -> _state
 
-  get_info: -> new tangojs.struct.DeviceInfo
+  get_info: -> new tangojs.core.api.DeviceInfo
     exported: true
     ior: 'IOR:123456789'
     name: _name
 
   properties:
-    scalar: new tangojs.struct.DbDatum('scalar', 1)
-    string: new tangojs.struct.DbDatum('string', 'test')
-    boolean: new tangojs.struct.DbDatum('boolean', true)
+    scalar: new tangojs.core.api.DbDatum('scalar', 1)
+    string: new tangojs.core.api.DbDatum('string', 'test')
+    boolean: new tangojs.core.api.DbDatum('boolean', true)
 
   attributes:
     scalar: createAttribute(0,
                             'scalar',
                             'u',
-                            tangojs.tango.AttrDataFormat.SCALAR,
+                            tangojs.core.tango.AttrDataFormat.SCALAR,
                             'scientific,setprecision(3)',
-                            tangojs.tango.DispLevel.OPERATOR,
-                            tangojs.tango.AttrWriteType.READ_WRITE,
+                            tangojs.core.tango.DispLevel.OPERATOR,
+                            tangojs.core.tango.AttrWriteType.READ_WRITE,
                             '0',
                             '100',
-                            new tangojs.tango.AttributeAlarm({
+                            new tangojs.core.tango.AttributeAlarm({
                               max_warning: '50'
                               max_alarm: '70'
                             }),
-                            tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                            tangojs.core.tango.AttributeDataType.ATT_DOUBLE)
     string: createAttribute(undefined,
                             'string'
                             undefined,
-                            tangojs.tango.AttrDataFormat.SCALAR,
+                            tangojs.core.tango.AttrDataFormat.SCALAR,
                             undefined,
-                            tangojs.tango.DispLevel.OPERATOR,
-                            tangojs.tango.AttrWriteType.READ_WRITE,
+                            tangojs.core.tango.DispLevel.OPERATOR,
+                            tangojs.core.tango.AttrWriteType.READ_WRITE,
                             undefined,
                             undefined,
                             null,
-                            tangojs.tango.AttributeDataType.ATT_STRING)
+                            tangojs.core.tango.AttributeDataType.ATT_STRING)
     sine_trend: (->
       name = 'sine_trend'
       format = 'scientific,setprecision(3)'
       attr = createAttribute(0,
                              name,
                              'u',
-                             tangojs.tango.AttrDataFormat.SCALAR,
+                             tangojs.core.tango.AttrDataFormat.SCALAR,
                              format,
-                             tangojs.tango.DispLevel.OPERATOR,
-                             tangojs.tango.AttrWriteType.READ,
+                             tangojs.core.tango.DispLevel.OPERATOR,
+                             tangojs.core.tango.AttrWriteType.READ,
                              undefined,
                              undefined,
                              null,
-                             tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                             tangojs.core.tango.AttributeDataType.ATT_DOUBLE)
       attr.get_value = ->
         value = Math.sin((new Date()).getTime()/1000.0)
         createDeviceAttributeStruct(name, format, value)
@@ -149,57 +149,57 @@ createDevice = (name) ->
     boolean: createAttribute(false,
                              'boolean'
                              undefined,
-                             tangojs.tango.AttrDataFormat.SCALAR,
+                             tangojs.core.tango.AttrDataFormat.SCALAR,
                              undefined,
-                             tangojs.tango.DispLevel.OPERATOR,
-                             tangojs.tango.AttrWriteType.READ_WRITE,
+                             tangojs.core.tango.DispLevel.OPERATOR,
+                             tangojs.core.tango.AttrWriteType.READ_WRITE,
                              undefined,
                              undefined,
                              null,
-                             tangojs.tango.AttributeDataType.ATT_BOOL)
+                             tangojs.core.tango.AttributeDataType.ATT_BOOL)
     spectrum: createAttribute(([1..10].map (_i) -> Math.random()),
                               'spectrum'
                               undefined,
-                              tangojs.tango.AttrDataFormat.SPECTRUM,
+                              tangojs.core.tango.AttrDataFormat.SPECTRUM,
                               undefined,
-                              tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttrWriteType.READ,
+                              tangojs.core.tango.DispLevel.OPERATOR,
+                              tangojs.core.tango.AttrWriteType.READ,
                               undefined,
                               undefined,
                               null,
-                              tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                              tangojs.core.tango.AttributeDataType.ATT_DOUBLE)
 
   commands:
     double_arg: createCommand(((x) -> 2*x),
                               'double',
-                              tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttributeDataType.ATT_DOUBLE,
-                              tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                              tangojs.core.tango.DispLevel.OPERATOR,
+                              tangojs.core.tango.AttributeDataType.ATT_DOUBLE,
+                              tangojs.core.tango.AttributeDataType.ATT_DOUBLE)
     to_upper: createCommand(((x) -> x.toUpperCase()),
                             'to_upper',
-                            tangojs.tango.DispLevel.OPERATOR,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA)
-    goto_on: createCommand((-> _state = tangojs.tango.DevState.ON),
+                            tangojs.core.tango.DispLevel.OPERATOR,
+                            tangojs.core.tango.AttributeDataType.ATT_NO_DATA,
+                            tangojs.core.tango.AttributeDataType.ATT_NO_DATA)
+    goto_on: createCommand((-> _state = tangojs.core.tango.DevState.ON),
                            'goto_on',
-                           tangojs.tango.DispLevel.OPERATOR,
-                           tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                           tangojs.tango.AttributeDataType.ATT_NO_DATA)
-    goto_off: createCommand((-> _state = tangojs.tango.DevState.OFF),
+                           tangojs.core.tango.DispLevel.OPERATOR,
+                           tangojs.core.tango.AttributeDataType.ATT_NO_DATA,
+                           tangojs.core.tango.AttributeDataType.ATT_NO_DATA)
+    goto_off: createCommand((-> _state = tangojs.core.tango.DevState.OFF),
                             'goto_off',
-                            tangojs.tango.DispLevel.OPERATOR,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA)
-    goto_fault: createCommand((-> _state = tangojs.tango.DevState.FAULT),
+                            tangojs.core.tango.DispLevel.OPERATOR,
+                            tangojs.core.tango.AttributeDataType.ATT_NO_DATA,
+                            tangojs.core.tango.AttributeDataType.ATT_NO_DATA)
+    goto_fault: createCommand((-> _state = tangojs.core.tango.DevState.FAULT),
                               'goto_fault',
-                              tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA)
-    goto_alarm: createCommand((-> _state = tangojs.tango.DevState.ALARM),
+                              tangojs.core.tango.DispLevel.OPERATOR,
+                              tangojs.core.tango.AttributeDataType.ATT_NO_DATA,
+                              tangojs.core.tango.AttributeDataType.ATT_NO_DATA)
+    goto_alarm: createCommand((-> _state = tangojs.core.tango.DevState.ALARM),
                               'goto_off',
-                              tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA)
+                              tangojs.core.tango.DispLevel.OPERATOR,
+                              tangojs.core.tango.AttributeDataType.ATT_NO_DATA,
+                              tangojs.core.tango.AttributeDataType.ATT_NO_DATA)
 
 ###*
  * @private

@@ -39,6 +39,6 @@
     "rollup-plugin-istanbul": "^1.0.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
-    "tangojs-core": "^0.2.6"
+    "tangojs-core": "^0.3.0"
   }
 }

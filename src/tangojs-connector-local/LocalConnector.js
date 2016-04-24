@@ -9,7 +9,7 @@ let asRegex = (pattern) => new RegExp(pattern.replace('*', '.*'), 'g')
 /** @private */
 let extractPropnames = (propnames) => {
   return (Array.isArray(propnames) ? propnames : [propnames])
-    .map(p => (p instanceof tangojs.struct.DbDatum) ? p.name
+    .map(p => (p instanceof tangojs.core.api.DbDatum) ? p.name
             : (typeof p === 'string' || p instanceof String) ? p
             : '')
     .filter(p => p !== '')
@@ -21,7 +21,7 @@ let wrapAsPromisedArray = (x) => Promise.resolve(Array.isArray(x) ? x : [x])
 /**
  * In-memory connector implementation.
  */
-export class LocalConnector extends tangojs.Connector {
+export class LocalConnector extends tangojs.core.Connector {
 
   /**
    * @param {Object} model
