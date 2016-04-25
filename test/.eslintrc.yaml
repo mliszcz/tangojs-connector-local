@@ -1,0 +1,8 @@
+---
+
+globals:
+  beforeEach: true
+  describe: true
+  xdescribe: true
+  it: true
+  xit: true

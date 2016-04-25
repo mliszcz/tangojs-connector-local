@@ -13,7 +13,7 @@ export default {
     'tangojs-core'
   ],
   globals: {
-    'tangojs-core': 'tangojs'
-  },
-  // , sourceMap: true // sourcemaps are broken by coffeescript plugin
+    'tangojs-core': 'tangojs.core'
+  }
+  // , sourceMap: true // sourcemaps are broken with coffeescript plugin
 }

@@ -49,7 +49,7 @@ describe('LocalConnector', () => {
   describe('get_device_state', () => {
     it('Should return device state', () => {
 
-      const state = tangojs.core.tango.DevState.INIT
+      const state = tangojs.tango.DevState.INIT
 
       registerDevice(devname, {
         get_state: sinon.stub().returns(state)
@@ -63,7 +63,7 @@ describe('LocalConnector', () => {
   describe('get_device_info', () => {
     it('Should return device state', () => {
 
-      const info = new tangojs.core.api.DeviceInfo({
+      const info = new tangojs.api.DeviceInfo({
         name: devname,
         ior: '12345'
       })
@@ -127,8 +127,8 @@ describe('LocalConnector', () => {
 
   describe('get_device_property', () => {
 
-    let prop1 = new tangojs.core.api.DbDatum('prop1', 10)
-    let prop2 = new tangojs.core.api.DbDatum('prop2', {})
+    let prop1 = new tangojs.api.DbDatum('prop1', 10)
+    let prop2 = new tangojs.api.DbDatum('prop2', {})
 
     beforeEach(() => {
       inspector.getProperty = sinon.stub()
@@ -157,7 +157,7 @@ describe('LocalConnector', () => {
   describe('put_device_property', () => {
     it('Should create / update device property', () => {
 
-      let prop3 = new tangojs.core.api.DbDatum('prop3', 0)
+      let prop3 = new tangojs.api.DbDatum('prop3', 0)
       let properties = { }
 
       registerDevice(devname, { properties })
@@ -173,7 +173,7 @@ describe('LocalConnector', () => {
     it('Should delete device property', () => {
 
       let properties = {
-        prop3: new tangojs.core.api.DbDatum('prop3', 0)
+        prop3: new tangojs.api.DbDatum('prop3', 0)
       }
 
       registerDevice(devname, { properties })
@@ -199,9 +199,9 @@ describe('LocalConnector', () => {
 
   describe('get_device_attribute_info', () => {
 
-    let info1 = new tangojs.core.api.AttributeInfo({})
-    let info2 = new tangojs.core.api.AttributeInfo({})
-    let info3 = new tangojs.core.api.AttributeInfo({})
+    let info1 = new tangojs.api.AttributeInfo({})
+    let info2 = new tangojs.api.AttributeInfo({})
+    let info3 = new tangojs.api.AttributeInfo({})
 
     beforeEach(() => {
 
@@ -239,8 +239,8 @@ describe('LocalConnector', () => {
 
   describe('read_device_attribute', () => {
 
-    let devAttr1 = new tangojs.core.api.DeviceAttribute({})
-    let devAttr2 = new tangojs.core.api.DeviceAttribute({})
+    let devAttr1 = new tangojs.api.DeviceAttribute({})
+    let devAttr2 = new tangojs.api.DeviceAttribute({})
 
     beforeEach(() => {
 
@@ -271,11 +271,11 @@ describe('LocalConnector', () => {
 
     let attrs = {
       attr1: {
-        value: new tangojs.core.api.DeviceAttribute({name: 'attr1', value: 10}),
+        value: new tangojs.api.DeviceAttribute({name: 'attr1', value: 10}),
         spy: null
       },
       attr2: {
-        value: new tangojs.core.api.DeviceAttribute({name: 'attr2', value: 11}),
+        value: new tangojs.api.DeviceAttribute({name: 'attr2', value: 11}),
         spy: null
       }
     }
@@ -326,8 +326,8 @@ describe('LocalConnector', () => {
 
     it('Should invoke command with arguments', () => {
 
-      let arg1 = new tangojs.core.api.DeviceData(10)
-      let out1 = new tangojs.core.api.DeviceData(20)
+      let arg1 = new tangojs.api.DeviceData(10)
+      let out1 = new tangojs.api.DeviceData(20)
 
       inspector.getCommand = sinon.stub().withArgs(devname, 'cmd1')
         .returns(Promise.resolve({
@@ -340,7 +340,7 @@ describe('LocalConnector', () => {
 
     it('Should invoke 0-arity command', () => {
 
-      let out1 = new tangojs.core.api.DeviceData(20)
+      let out1 = new tangojs.api.DeviceData(20)
 
       inspector.getCommand = sinon.stub().withArgs(devname, 'cmd1')
         .returns(Promise.resolve({
@@ -355,7 +355,7 @@ describe('LocalConnector', () => {
   describe('device_command_query', () => {
     it('Should return command info', () => {
 
-      let info = new tangojs.core.api.CommandInfo({})
+      let info = new tangojs.api.CommandInfo({})
 
       inspector.getCommand = sinon.stub().withArgs(devname, 'cmd1')
         .returns(Promise.resolve({
@@ -369,8 +369,8 @@ describe('LocalConnector', () => {
 
   describe('device_command_list_query', () => {
 
-    let info1 = new tangojs.core.api.CommandInfo({})
-    let info2 = new tangojs.core.api.CommandInfo({})
+    let info1 = new tangojs.api.CommandInfo({})
+    let info2 = new tangojs.api.CommandInfo({})
 
     beforeEach(() => {
 

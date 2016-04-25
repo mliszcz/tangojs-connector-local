@@ -53,8 +53,9 @@ test/
 src/
 babelhook.js
 
-.editorconfig
-.eslintrc
+.istanbul.yml
+.eslintrc.yaml
+.eslintignore
+.rollup.*.js
+.tern-project
 .gitignore
-.travis.yml
-gulpfile.js

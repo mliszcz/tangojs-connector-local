@@ -20,10 +20,12 @@
   "scripts": {
     "compile": "rollup --config ./.rollup.config.js",
     "model:compile": "rollup --config ./.rollup.model.config.js",
+    "pretest": "rollup --config ./.rollup.test.config.js",
     "lint": "eslint src",
-    "test": "echo 'currently disabled'",
+    "test": "mocha",
+    "cover": "nyc --reporter lcov npm run test",
     "prepublish": "npm run compile && npm run model:compile && npm run lint && npm run test",
-    "preversion": "npm run compile && npm run model:compile && npm run lint && npm run test",
+    "preversion": "npm run prepublish",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {},
@@ -32,11 +34,12 @@
     "chai-as-promised": "^5.3.0",
     "coffee-script": "^1.10.0",
     "eslint": "^2.8.0",
-    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
+    "nyc": "^6.4.0",
     "rollup": "^0.26.0",
     "rollup-plugin-coffee-script": "^1.0.0",
     "rollup-plugin-istanbul": "^1.0.0",
+    "rollup-plugin-multi-entry": "^1.2.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "tangojs-core": "^0.3.0"

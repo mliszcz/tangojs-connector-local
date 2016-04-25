@@ -10,7 +10,7 @@ export default {
     'tangojs-core'
   ],
   globals: {
-    'tangojs-core': 'tangojs'
+    'tangojs-core': 'tangojs.core'
   },
   sourceMap: true
 }

@@ -39,3 +39,6 @@ nbproject
 
 # Documentation
 /docs
+
+build/
+.nyc_output/

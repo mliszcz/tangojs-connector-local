@@ -1,4 +1,3 @@
-./test/bootstrap.test.js
-./test/unit/**/*.test.js
+build/**/*.test.js
 --recursive
 --reporter spec
