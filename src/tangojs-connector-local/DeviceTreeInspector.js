@@ -1,6 +1,6 @@
 
 /** @private */
-function reject(message) {
+function reject (message) {
   return Promise.reject(new Error(message))
 }
 
@@ -8,12 +8,12 @@ function reject(message) {
 const slash = new RegExp('/', 'g')
 
 /** @private */
-function flatten(object, depth, separator) {
+function flatten (object, depth, separator) {
   return (depth === 1) ? object
   : Object.keys(object).reduce((flattened, key1) => {
     let value = object[key1]
     let merged
-    if (typeof value !== 'object' || value == null) {
+    if (typeof value !== 'object' || value === null) {
       merged = {}
       merged[key1] = value
     } else {
@@ -32,7 +32,7 @@ export class DeviceTreeInspector {
   /**
    * @param {Object} model
    */
-  constructor(model) {
+  constructor (model) {
     /** @private */
     this._model = model
   }
@@ -41,7 +41,7 @@ export class DeviceTreeInspector {
    * @param {string} devname
    * @return {Promise<Object>}
    */
-  getDevice(devname) {
+  getDevice (devname) {
     try {
       let [domain, family, member] = devname.split('/')
       return Promise.resolve(this._model[domain][family][member])
@@ -55,7 +55,7 @@ export class DeviceTreeInspector {
    * @param {string} attname
    * @return {Promise<Object>}
    */
-  getAttribute(devname, attname) {
+  getAttribute (devname, attname) {
     return this.getDevice(devname).then(device =>
       device.attributes && device.attributes[attname]
         ? device.attributes[attname]
@@ -68,7 +68,7 @@ export class DeviceTreeInspector {
    * @param {string} cmdname
    * @return {Promise<Object>}
    */
-  getCommand(devname, cmdname) {
+  getCommand (devname, cmdname) {
     return this.getDevice(devname).then(device =>
       device.commands && device.commands[cmdname]
         ? device.commands[cmdname]
@@ -81,7 +81,7 @@ export class DeviceTreeInspector {
    * @param {string} propname
    * @return {Promise<Object>}
    */
-  getProperty(devname, propname) {
+  getProperty (devname, propname) {
     return this.getDevice(devname).then(device =>
       device.properties && device.properties[propname]
         ? device.properties[propname]
@@ -92,7 +92,7 @@ export class DeviceTreeInspector {
   /**
    * @return {Promise<string[]>}
    */
-  getDeviceNameList() {
+  getDeviceNameList () {
     const list = Object.keys(flatten(this._model, 3, '/'))
       .filter(key => (key.match(slash) || []).length === 2)
     return Promise.resolve(list)

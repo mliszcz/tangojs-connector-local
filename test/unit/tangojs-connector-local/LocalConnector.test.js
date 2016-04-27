@@ -138,31 +138,21 @@ describe('LocalConnector', () => {
         .returns(Promise.resolve(prop2))
     })
 
-    it('Should return device property for string name', () => {
-      return connector.get_device_property(devname, 'prop1')
-        .should.eventually.be.equal(prop1)
-    })
-
     it('Should return device property for string[] names', () => {
       return connector.get_device_property(devname, ['prop1', 'prop2'])
-        .should.eventually.have.members([prop1, prop2])
-    })
-
-    it('Should return device property for DbDatum[] names', () => {
-      return connector.get_device_property(devname, [prop1, prop2])
         .should.eventually.have.members([prop1, prop2])
     })
   })
 
   describe('put_device_property', () => {
-    it('Should create / update device property', () => {
+    it('Should create / update device property from array', () => {
 
       let prop3 = new tangojs.api.DbDatum('prop3', 0)
       let properties = { }
 
       registerDevice(devname, { properties })
 
-      return connector.put_device_property(devname, prop3).then(() =>
+      return connector.put_device_property(devname, [prop3]).then(() =>
         properties.should.have.property('prop3', prop3)
       )
     })
@@ -170,16 +160,15 @@ describe('LocalConnector', () => {
   })
 
   describe('delete_device_property', () => {
-    it('Should delete device property', () => {
+    it('Should delete device property from array', () => {
 
       let properties = {
         prop3: new tangojs.api.DbDatum('prop3', 0)
       }
 
       registerDevice(devname, { properties })
-      connector.delete_device_property(devname, 'prop3')
 
-      return connector.delete_device_property(devname, 'prop3').then(() =>
+      return connector.delete_device_property(devname, ['prop3']).then(() =>
         properties.should.not.have.property('prop3')
       )
     })
@@ -221,19 +210,9 @@ describe('LocalConnector', () => {
       })
     })
 
-    it('Should return attribute info for string name', () => {
-      return connector.get_device_attribute_info(devname, 'attr2')
-        .should.eventually.be.equal(info2)
-    })
-
     it('Should return attributes info for string[] name', () => {
       return connector.get_device_attribute_info(devname, ['attr1', 'attr3'])
         .should.eventually.have.members([info1, info3])
-    })
-
-    it('Should return all attributes info when no name is provided', () => {
-      return connector.get_device_attribute_info(devname)
-        .should.eventually.have.members([info1, info2, info3])
     })
   })
 
@@ -254,11 +233,6 @@ describe('LocalConnector', () => {
             get_value: sinon.stub().returns(attrs[attrname])
           }))
       })
-    })
-
-    it('Should return read result for single attribute', () => {
-      return connector.read_device_attribute(devname, 'attr2')
-        .should.eventually.be.equal(devAttr2)
     })
 
     it('Should return read results for multiple attributes', () => {
