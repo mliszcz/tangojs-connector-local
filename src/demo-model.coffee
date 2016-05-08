@@ -115,7 +115,7 @@ createDevice = (name) ->
                               max_warning: '50'
                               max_alarm: '70'
                             }),
-                            tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                            tangojs.tango.AttributeDataType.ATT_DOUBLE.value)
     string: createAttribute(undefined,
                             'string'
                             undefined,
@@ -126,7 +126,7 @@ createDevice = (name) ->
                             undefined,
                             undefined,
                             null,
-                            tangojs.tango.AttributeDataType.ATT_STRING)
+                            tangojs.tango.AttributeDataType.ATT_STRING.value)
     sine_trend: (->
       name = 'sine_trend'
       format = 'scientific,setprecision(3)'
@@ -140,7 +140,7 @@ createDevice = (name) ->
                              undefined,
                              undefined,
                              null,
-                             tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                             tangojs.tango.AttributeDataType.ATT_DOUBLE.value)
       attr.get_value = ->
         value = Math.sin((new Date()).getTime()/1000.0)
         createDeviceAttributeStruct(name, format, value)
@@ -156,7 +156,7 @@ createDevice = (name) ->
                              undefined,
                              undefined,
                              null,
-                             tangojs.tango.AttributeDataType.ATT_BOOL)
+                             tangojs.tango.AttributeDataType.ATT_BOOL.value)
     spectrum: createAttribute(([1..10].map (_i) -> Math.random()),
                               'spectrum'
                               undefined,
@@ -167,39 +167,39 @@ createDevice = (name) ->
                               undefined,
                               undefined,
                               null,
-                              tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                              tangojs.tango.AttributeDataType.ATT_DOUBLE.value)
 
   commands:
     double_arg: createCommand(((x) -> 2*x),
                               'double',
                               tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttributeDataType.ATT_DOUBLE,
-                              tangojs.tango.AttributeDataType.ATT_DOUBLE)
+                              tangojs.tango.AttributeDataType.ATT_DOUBLE.value,
+                              tangojs.tango.AttributeDataType.ATT_DOUBLE.value)
     to_upper: createCommand(((x) -> x.toUpperCase()),
                             'to_upper',
                             tangojs.tango.DispLevel.OPERATOR,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA)
+                            tangojs.tango.AttributeDataType.ATT_NO_DATA.value,
+                            tangojs.tango.AttributeDataType.ATT_NO_DATA.value)
     goto_on: createCommand((-> _state = tangojs.tango.DevState.ON),
                            'goto_on',
                            tangojs.tango.DispLevel.OPERATOR,
-                           tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                           tangojs.tango.AttributeDataType.ATT_NO_DATA)
+                           tangojs.tango.AttributeDataType.ATT_NO_DATA.value,
+                           tangojs.tango.AttributeDataType.ATT_NO_DATA.value)
     goto_off: createCommand((-> _state = tangojs.tango.DevState.OFF),
                             'goto_off',
                             tangojs.tango.DispLevel.OPERATOR,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                            tangojs.tango.AttributeDataType.ATT_NO_DATA)
+                            tangojs.tango.AttributeDataType.ATT_NO_DATA.value,
+                            tangojs.tango.AttributeDataType.ATT_NO_DATA.value)
     goto_fault: createCommand((-> _state = tangojs.tango.DevState.FAULT),
                               'goto_fault',
                               tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA)
+                              tangojs.tango.AttributeDataType.ATT_NO_DATA.value,
+                              tangojs.tango.AttributeDataType.ATT_NO_DATA.value)
     goto_alarm: createCommand((-> _state = tangojs.tango.DevState.ALARM),
                               'goto_off',
                               tangojs.tango.DispLevel.OPERATOR,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA,
-                              tangojs.tango.AttributeDataType.ATT_NO_DATA)
+                              tangojs.tango.AttributeDataType.ATT_NO_DATA.value,
+                              tangojs.tango.AttributeDataType.ATT_NO_DATA.value)
 
 ###*
  * @private
