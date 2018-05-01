@@ -26,6 +26,15 @@ export class LocalConnector extends tangojs.Connector {
    * @param {string} devname
    * @return {Promise<string,Error>}
    */
+  init () {
+    return new Promise( (resolve, reject) => resolve(this))
+  }
+  
+
+  /**
+   * @param {string} devname
+   * @return {Promise<string,Error>}
+   */
   get_device_status (devname) {
     return this._tree.getDevice(devname)
       .then(device => device.get_status())
