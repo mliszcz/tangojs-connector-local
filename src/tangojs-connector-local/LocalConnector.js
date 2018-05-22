@@ -23,6 +23,15 @@ export class LocalConnector extends tangojs.Connector {
   }
 
   /**
+   * Database default name 
+   * @return {Promise<string,Error>}
+   */
+  get_database () {
+    return Promise.resolve("sys/database/2")
+      
+  }
+
+  /**
    * @param {string} devname
    * @return {Promise<string,Error>}
    */
