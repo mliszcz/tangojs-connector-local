@@ -23,12 +23,11 @@ export class LocalConnector extends tangojs.Connector {
   }
 
   /**
-   * Database default name 
+   * Database default name
    * @return {Promise<string,Error>}
    */
   get_database () {
-    return Promise.resolve("sys/database/2")
-      
+    return Promise.resolve('sys/database/2')
   }
 
   /**
@@ -36,9 +35,10 @@ export class LocalConnector extends tangojs.Connector {
    * @return {Promise<string,Error>}
    */
   init () {
-    return new Promise( (resolve, reject) => resolve(this))
+    return new Promise( (resolve, reject) =>
+      (this._tree? resolve(this) : reject(this))
+    )
   }
-  
 
   /**
    * @param {string} devname
@@ -112,8 +112,11 @@ export class LocalConnector extends tangojs.Connector {
   get_device_property_list (devname, pattern) {
     const regex = asRegex(pattern)
     return this._tree.getDevice(devname)
-      .then(device => Object.keys(device.properties)
-                        .filter(s => s.match(regex)))
+      .then(device =>
+        Object.keys(device.properties).filter(s =>
+          s.match(regex)
+        )
+      )
   }
 
   /**
@@ -195,7 +198,7 @@ export class LocalConnector extends tangojs.Connector {
       return this._tree.getAttribute(devname, name)
         .then(attr => attr.set_value(value))
     }))
-    .then(() => undefined)
+      .then(() => undefined)
   }
 
   /**

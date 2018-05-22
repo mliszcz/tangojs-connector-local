@@ -10,21 +10,21 @@ const slash = new RegExp('/', 'g')
 /** @private */
 function flatten (object, depth, separator) {
   return (depth === 1) ? object
-  : Object.keys(object).reduce((flattened, key1) => {
-    let value = object[key1]
-    let merged
-    if (typeof value !== 'object' || value === null) {
-      merged = {}
-      merged[key1] = value
-    } else {
-      let child = flatten(object[key1], depth-1, separator)
-      merged = Object.keys(child).reduce((acc, key2) => {
-        acc[`${key1}${separator}${key2}`] = child[key2]
-        return acc
-      }, {})
-    }
-    return Object.assign(flattened, merged)
-  }, {})
+    : Object.keys(object).reduce((flattened, key1) => {
+      let value = object[key1]
+      let merged
+      if (typeof value !== 'object' || value === null) {
+        merged = {}
+        merged[key1] = value
+      } else {
+        let child = flatten(object[key1], depth-1, separator)
+        merged = Object.keys(child).reduce((acc, key2) => {
+          acc[`${key1}${separator}${key2}`] = child[key2]
+          return acc
+        }, {})
+      }
+      return Object.assign(flattened, merged)
+    }, {})
 }
 
 export class DeviceTreeInspector {
